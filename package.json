@@ -1,7 +1,8 @@
 {
   "name": "larina-ui",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple template for a custom React component library",
+  "repository": "https://github.com/larina-ui/larina-ui",
   "main": "dist/cjs/index.js",
   "scripts": {
     "rollup": "rollup -c",
