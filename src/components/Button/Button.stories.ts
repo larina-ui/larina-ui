@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Button  from './Button';
 
 const meta: Meta<typeof Button> = {
-  title: 'Button',
+  title: 'Components/Button',
   component: Button,
   // ...
 };
@@ -12,15 +12,9 @@ type Story = StoryObj<typeof Button>;
   
 export const Primary: Story = {
      args: {
-        children: 'Buuton',
-        variant: 'primary'
+        children: 'Button',
+        variant: 'primary',
+        size: 'medium'
      }
-};
-
-export const Secondary: Story = {
-    args: {
-       children: 'Buuton',
-       variant: 'secondary'
-    }
 };
 

@@ -1,81 +1,118 @@
 import React, { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
-type ButtonProps = {
+interface ButtonProps {
   variant?: 'primary' | 'secondary';
   size?: 'small' | 'medium' | 'large';
-  onClick?: () => void;
+  color?: string;
+  icon?: React.ReactNode;
   disabled?: boolean;
-  children: ReactNode
-};
+  loading?: boolean;
+  onClick?: () => void;
+  children: ReactNode;
+}
 
-const ButtonBase = styled.button<ButtonProps>`
-  display: inline-block;
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
+const ButtonContainer = styled.button<ButtonProps>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
   border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
-
+  transition: background-color 0.3s ease;
   ${({ variant }) =>
     variant === 'primary'
       ? css`
-        background-color: ${(props) => props.theme.colors.primary};
-        border-color: ${(props) => props.theme.colors.primary};
-        color: #fff;
-
+          background-color: #007bff;
+          color: #ffffff;
         `
       : css`
-          background-color: #f5f5f5;
-          color: #333;
-        `}
-
+          background-color: #ffffff;
+          color: #007bff;
+          border: 1px solid #007bff;
+        `};
   ${({ size }) =>
-    size === 'small'
-      ? css`
-          padding: 6px 12px;
-          font-size: 12px;
-        `
-      : size === 'large'
-      ? css`
-          padding: 10px 20px;
-          font-size: 16px;
-        `
-      : null}
-
+    size === 'small' &&
+    css`
+      padding: 4px 8px;
+      font-size: 14px;
+    `};
+  ${({ size }) =>
+    size === 'large' &&
+    css`
+      padding: 12px 24px;
+      font-size: 18px;
+    `};
+  ${({ color }) =>
+    color &&
+    css`
+      background-color: ${color};
+    `};
   ${({ disabled }) =>
     disabled &&
     css`
-      opacity: 0.5;
+      opacity: 0.6;
       cursor: not-allowed;
-    `}
+    `};
+`;
 
-  &:hover {
-    ${({ variant, disabled }) =>
-      !disabled &&
-      css`
-        background-color: ${variant === 'primary' ? '#0056b3' : '#e6e6e6'};
-      `}
-  }
+const ButtonIcon = styled.span`
+  margin-right: 8px;
+`;
 
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
+const ButtonLoader = styled.span`
+  margin-right: 8px;
+  animation: spin 0.8s infinite linear;
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 `;
 
-const Button: React.FC<ButtonProps> = ({ variant = 'primary', size = 'medium', onClick, disabled, children }) => {
+const Button: React.FC<ButtonProps> = ({
+  variant = 'primary',
+  size = 'medium',
+  color,
+  icon,
+  disabled = false,
+  loading = false,
+  onClick,
+  children,
+}) => {
   const handleClick = () => {
-    if (disabled) return;
-    if (onClick) onClick();
+    if (onClick && !disabled && !loading) {
+      onClick();
+    }
   };
 
   return (
-    <ButtonBase variant={variant} size={size} onClick={handleClick} disabled={disabled}>
-      {children}
-    </ButtonBase>
+    <ButtonContainer
+      variant={variant}
+      size={size}
+      color={color}
+      disabled={disabled || loading}
+      onClick={handleClick}
+    >
+      {loading ? (
+        <>
+          <ButtonLoader>&#8987;</ButtonLoader>
+          Loading...
+        </>
+      ) : (
+        <>
+          {icon && <ButtonIcon>{icon}</ButtonIcon>}
+          {children}
+        </>
+      )}
+    </ButtonContainer>
   );
 };
 

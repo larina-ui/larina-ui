@@ -8,6 +8,7 @@ const meta: Meta<typeof Breadcrumb> = {
 };
     
 export default meta;
+
 type Story = StoryObj<typeof Breadcrumb>;
   
 export const Primary: Story = {

@@ -1,3 +1,4 @@
+import React from "react";
 import type { Preview } from "@storybook/react";
 import { ThemeProvider, theme } from '../src/components/ThemeProvider';
 
@@ -9,6 +10,9 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/,
       },
+    },
+    docs: {
+      toc: true, // 👈 Enables the table of contents
     },
   },
   decorators: [

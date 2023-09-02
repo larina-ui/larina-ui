@@ -1,34 +1,24 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
+import { space, layout, border, typography, grid, shadow, color, position, background, flexbox, BackgroundProps,  SpaceProps, LayoutProps, PositionProps, ColorProps, BorderProps, FlexboxProps, TypographyProps, GridProps, ShadowProps } from 'styled-system'
 
-type BoxProps = {
-  width?: string;
-  height?: string;
-  backgroundColor?: string;
-  children: any,
-  style?: React.CSSProperties;
-  className?: string;
-} & React.HTMLAttributes<HTMLDivElement>;
+export interface BoxProps extends SpaceProps, LayoutProps, PositionProps, BackgroundProps, BorderProps, FlexboxProps, ColorProps, TypographyProps, GridProps, ShadowProps {
+  children: ReactNode,
+  as?: React.ElementType;
+};
 
-const StyledBox = styled.div<BoxProps>`
-  width: ${({ width }) => width || '100%'};
-  height: ${({ height }) => height || '100%'};
-  background-color: ${({ backgroundColor }) => backgroundColor || 'transparent'};
+const Box = styled.div<BoxProps>`
+    ${space}
+    ${layout}
+    ${position}
+    ${background}
+    ${border}
+    ${flexbox}
+    ${color}
+    ${shadow}
+    ${grid}
+    ${typography}
 `;
 
-const Box: React.FC<BoxProps> = ({ width, height, backgroundColor, style, children, className, ...rest }) => {
-  return (
-    <StyledBox
-      width={width}
-      height={height}
-      backgroundColor={backgroundColor}
-      style={style}
-      className={className}
-      {...rest}
-    >
-      {children}
-    </StyledBox>
-  );
-};
 
 export default Box;
