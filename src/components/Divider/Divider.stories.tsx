@@ -7,6 +7,7 @@ const meta: Meta<typeof Divider> = {
 };
     
 export default meta;
+
 type Story = StoryObj<typeof Divider>;
   
 export const Default: Story = {

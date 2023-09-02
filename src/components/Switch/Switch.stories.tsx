@@ -1,8 +1,5 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { useArgs } from '@storybook/manager-api';
 import Switch  from './Switch';
-
 
 
 const meta: Meta<typeof Switch> = {

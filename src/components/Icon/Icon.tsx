@@ -1,20 +1,27 @@
 import React from 'react';
+import { IconType } from 'react-icons';
+import { FaQuestion } from 'react-icons/fa';
+import { space, color, layout, SpaceProps, ColorProps, LayoutProps } from 'styled-system';
 import styled from 'styled-components';
 
-type IconProps = {
-  name: string;
-  size?: number;
-  color?: string;
+export type IconProps = SpaceProps & ColorProps & LayoutProps & {
+  icon?: IconType;
+  size?: number | string;
 };
 
-const StyledIcon = styled.i<IconProps>`
-  font-family: 'Material Icons';
-  font-size: ${({ size }) => (size ? `${size}px` : '24px')};
-  color: ${({ color }) => (color ? color : 'inherit')};
+const StyledIcon = styled.span<IconProps>`
+  ${space}
+  ${color}
+  ${layout}
 `;
 
-const Icon: React.FC<IconProps> = ({ name, size, color }) => {
-  return <StyledIcon size={size} color={color} name={name} />;
+const Icon: React.FC<IconProps> = ({ icon: IconComponent, size = 24, ...props }) => {
+  return <StyledIcon as={IconComponent} size={size} {...props} />;
 };
+
+
+Icon.defaultProps = {
+    icon: FaQuestion
+}
 
 export default Icon;
