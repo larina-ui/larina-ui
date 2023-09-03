@@ -1,7 +1,7 @@
 import { space, width, fontSize, color } from 'styled-system';
 
 
-export const theme = {
+const theme = {
     breakpoints: [32, 48, 64],
     space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
     fontSizes: [12, 14, 16, 20, 24, 36, 48, 80, 96],
@@ -79,3 +79,5 @@ export const theme = {
       // ... and so on
     },
   };
+
+  export default theme;

@@ -2,6 +2,7 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { FaReact, FaGithub, FaAd } from 'react-icons/fa';
 import Icon from './Icon';
+import { AddIcon } from './Icons';
 
 const meta: Meta<typeof Icon> = {
     title: 'Components/Icon',
@@ -21,4 +22,13 @@ export const ThirdParty = {
         <Icon />
       </div>
      )
+};
+
+
+export const Core = {
+  render: () => (
+     <div>
+     <AddIcon size={128} color="red" />
+   </div>
+  )
 };
