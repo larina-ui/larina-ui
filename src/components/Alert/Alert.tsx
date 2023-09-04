@@ -1,75 +1,61 @@
-import React, { ReactNode } from 'react';
-import styled, { css } from 'styled-components';
+import React, { FC, ReactNode } from 'react';
+import styled from 'styled-components';
+import { space, SpaceProps, layout, background, backgroundColor, LayoutProps, variant, VariantArgs, BackgroundProps, BackgroundColorProps } from 'styled-system';
 
-type AlertProps = {
-  variant: 'success' | 'warning' | 'danger' | 'info';
-  padding?: string;
-  borderRadius?: string;
-  backgroundColor?: string;
-  textColor?: string;
-  children: ReactNode;
-};
+export interface AlertProps extends SpaceProps, LayoutProps, BackgroundColorProps {
+  variant: 'success' | 'warning' | 'error';
+  statusIcon: ReactNode;
+  title: string;
+  description?: string;
+}
 
-const AlertBase = styled.div<AlertProps>`
-  padding: ${({ padding }) => padding || '16px'};
-  border-radius: ${({ borderRadius }) => borderRadius || '4px'};
-  font-size: 14px;
-
-  ${({ variant, backgroundColor, textColor }) =>
-    css`
-      background-color: ${backgroundColor || getBackgroundColor(variant)};
-      color: ${textColor || getTextColor(variant)};
-    `}
+const AlertContainer = styled.div<{ variant: AlertProps['variant'] }>`
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 4px;
+  ${variant<VariantArgs>({
+    prop: 'variant',
+    variants: {
+      success: {
+        backgroundColor: 'green.50',
+        color: 'green.50',
+      },
+      warning: {
+        backgroundColor: 'yellow.100',
+        color: 'yellow.900',
+      },
+      error: {
+        backgroundColor: 'red.100',
+        color: 'red.900',
+      },
+    },
+  })}
+  ${space}
+  ${layout}
 `;
 
-const getBackgroundColor = (variant: string) => {
-  switch (variant) {
-    case 'success':
-      return '#d4edda';
-    case 'warning':
-      return '#fff3cd';
-    case 'danger':
-      return '#f8d7da';
-    case 'info':
-      return '#d1ecf1';
-    default:
-      return '#ffffff';
-  }
-};
+const StatusIcon = styled.span`
+  margin-right: 12px;
+`;
 
-const getTextColor = (variant: string) => {
-  switch (variant) {
-    case 'success':
-      return '#155724';
-    case 'warning':
-      return '#856404';
-    case 'danger':
-      return '#721c24';
-    case 'info':
-      return '#0c5460';
-    default:
-      return '#333333';
-  }
-};
+const Title = styled.h4`
+  margin: 0;
+`;
 
-const Alert: React.FC<AlertProps> = ({
-  variant,
-  padding,
-  borderRadius,
-  backgroundColor,
-  textColor,
-  children,
-}) => {
+const Description = styled.p`
+  margin: 0;
+`;
+
+const Alert: FC<AlertProps> = ({ variant, statusIcon, title, description, ...rest }) => {
   return (
-    <AlertBase
-      variant={variant}
-      padding={padding}
-      borderRadius={borderRadius}
-      backgroundColor={backgroundColor}
-      textColor={textColor}
-    >
-      {children}
-    </AlertBase>
+    <AlertContainer variant={variant} {...rest}>
+      {statusIcon && <StatusIcon>{statusIcon}</StatusIcon>}
+      <div>
+        <Title>{title}</Title>
+        {description && <Description>{description}</Description>}
+      </div>
+    </AlertContainer>
   );
 };
 

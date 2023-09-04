@@ -4,7 +4,7 @@ import { space, color, layout } from 'styled-system';
 import styled from 'styled-components';
 import type { IconProps } from './types';
 
-const StyledIcon = styled.span<IconProps>`
+const StyledIcon = styled.i<IconProps>`
   ${space}
   ${color}
   ${layout}

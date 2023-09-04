@@ -48,6 +48,9 @@ const theme = {
       'near-white': '#f4f4f4',
       white: '#fff',
       transparent: 'transparent',
+      green: {
+        '50': '#FF0000'
+      },
       blacks: [
         'rgba(0,0,0,.0125)',
         'rgba(0,0,0,.025)',
@@ -80,4 +83,7 @@ const theme = {
     },
   };
 
-  export default theme;
+
+export type Theme = typeof theme;
+
+export default theme;

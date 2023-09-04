@@ -13,12 +13,12 @@ type Story = StoryObj<typeof AspectRatio>;
   
 export const Default: Story = {
      args: {
-        ratio:  9/16,
+        ratio:  1/2,
         children: <iframe
         title='naruto'
         src='https://www.youtube.com/embed/QhBnZ6NPOY0'
         allowFullScreen
       />,
-        width: '500px'
+        width: '100%',
      }
 };
